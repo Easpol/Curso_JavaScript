@@ -221,4 +221,4 @@ console.log(personaCallAñadir.nombreCompleto());
 console.log(personaCallAñadir.nombreCompleto('Bombero', '987654321'));    // Añadimos los parámetros al método     
 
 console.log(personaCallAñadir.nombreCompleto.call(personaCallAñadir2));    // Llamamos al método para obtener los datos como queremos
-console.log(personaCallAñadir.nombreCompleto.call(personaCallAñadir2, 'Ingeniero', '123456789'));    // Añadimos los parámetros al método
+console.log(personaCallAñadir.nombreCompleto.call(personaCallAñadir2, 'Ingeniero', '123456789'));    // Añadimos los parámetros al método gracias al metodo call desde personaCallAñadir2 para personaCallAñadir
