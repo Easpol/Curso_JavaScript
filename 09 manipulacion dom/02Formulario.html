@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con js</title>
+</head>
+<body>
+
+    <form id="formulario">
+
+        <h1 id="titulo">Formulario</h1>
+        nombre <input type="text" name="nombre" value="Luis">
+        <br>
+
+        apellido <input type="text" name="apellido" value="Mors">
+        <br>
+
+        <img id="imagen" src="/09 manipulacion dom/1.jpg" style="width: 200px; height: 150px;">
+
+    </form>
+
+    <button onclick= "mostrarValores()">Mostrar Valores</button>
+    <button onclick= "mostrarTituloPredefinido()">Mostrar Nuevo Titulo predefinido</button>
+    <button onclick= "mostrarTituloSaludando()">Mostrar Saludo</button>
+    <button onclick= "cambiarImagenPred()">Cambiar Imagen Pred</button>
+    <button onclick= "cambiarImagenCont()">Cambiar Imagen Cont</button>
+    <button onclick= "cambiarColor()">Cambiar Color del titulo a Rojo</button>
+
+    <div id="valores"></div>
+
+
+    <script>
+
+        // Funcion para mostrar los valores del formulario
+
+        function mostrarValores(){             
+                                             // Creamos una funcion para mostrar los valores del formulario
+            let formulario = document.forms['formulario'];                          // Obtenemos el formulario
+
+            let texto ='';                                                          // Creamos una variable para almacenar el texto                         
+
+            /*for(let elemento of formulario){                                      // Recorremos los elementos del formulario
+                texto += elemento.value + '<br>';                                             // Almacenamos el valor de cada elemento en la variable texto
+            }*/
+
+            
+            // Otra forma de recorrer el formulario para acceder a los valores sin necesidad del for "se puede comentar el for y funcina igual"
+
+            let nombre = formulario['nombre'];                                      // Obtenemos el input con name nombre
+            let apellido = formulario['apellido'];                                  // Obtenemos el input con name apellido
+            texto = nombre.value+ '<br>' + apellido.value + '<br>';                            // Almacenamos el valor del input nombre en la variable texto
+
+
+
+            document.getElementById('valores').innerHTML = texto;                   // Mostramos el texto en el div con id valores que teniamos vacio en el html
+        }
+
+
+        // Funcion para mostrar un nuevo titulo predefinido
+
+        function mostrarTituloPredefinido(){             
+
+            document.getElementById('titulo').innerHTML = 'Nuevo Titulo';                       // Cambiamos el texto del h1 con id titulo por el texto 'Nuevo Titulo'
+
+        }
+
+        // Funcion para mostrar un nuevo titulo saludando obteniendo los valores del formulario
+
+        function mostrarTituloSaludando(){             
+            let formulario = document.forms['formulario'];                         // Obtenemos el formulario
+            let titulo = document.getElementById('titulo');                        // Obtenemos el titulo
+            titulo.innerHTML = 'Hola ' + formulario['nombre'].value + ' ' + formulario['apellido'].value;               // Cambiamos el texto del titulo por el valor del input nombre y apellido
+        }
+
+
+        // Funcion para cambiar una imagen por otra
+        
+        function cambiarImagenPred(){             
+
+            document.getElementById('imagen').src = '/09 manipulacion dom/2.png';                   // Cambiamos la imagen por la imagen 2.jpg
+
+        }
+
+        // Funcion para cambiar entre varias imagenes
+
+        let imagenes = ['/09 manipulacion dom/1.jpg',                                   // Creamos un array con las rutas de las imagenes
+                        '/09 manipulacion dom/2.png', 
+                        '/09 manipulacion dom/3.jpg'];          
+
+        let indiceActual = 0;                                                           // Creamos una variable para llevar el control de la imagen actual
+
+        function cambiarImagenCont(){
+
+            indiceActual = (indiceActual + 1) % imagenes.length;                        // Actualiza el índice de forma circular
+
+            document.getElementById('imagen').src = imagenes[indiceActual];             // Cambia la imagen
+
+        }
+
+        // Función para cambiar el stilo de un elemento
+
+        function cambiarColor(){
+
+            document.getElementById('titulo').style.color = 'red';                      // Cambiamos el color/estilo del titulo a rojo
+        }
+
+    </script>
+
+    
+</body>
+</html>

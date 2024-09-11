@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso y Manipulación del DOM</title>
+</head>
+<body>
+
+    <h1 id="cabecera" class="azul">Ejemplo DOM con Javascript</h1>
+
+    <p id="parrafo" class="verde">Este es el parrafo UNO</p>
+    <p id="parrafo" class="azul">Este es el parrafo DOS</p>
+    <p id="parrafo" class="verde">Este es el parrafo TRES</p>
+
+
+    <script>
+
+        // Accediendo al DOM            (Document Object Model)
+        
+        // GetElementById
+        
+        let cabecera= document.getElementById('cabecera');              // se crea una variable cabecera y se le asigna el valor de la etiqueta h1 con el innerHTML y el id cabecera
+                                                                            
+        console.log(cabecera.innerHTML);                                              // se imprime en consola el valor de la variable cabecera
+
+
+        // GetElementByTagName
+
+        let parrafos= document.getElementsByTagName('p');               // se crea una variable parrafos y se le asigna el valor de la etiqueta p gracias al getElementsByTagName
+
+        console.log(parrafo.length);                                                // se imprime en consola la longitud de la variable parrafo. Los parrafos que se encuentran en el documento
+
+
+        // GetElementsByClassName
+
+        let parrafosVerde= document.getElementsByClassName('verde');       // se crea una variable parrafosVerde y se le asigna el valor de los elementos con clase verde gracias al getElementsByClassName
+
+        console.log(parrafosVerde.length);                                          // se imprime en consola la longitud de la variable parrafosVerde. Los parrafos que se encuentran en el documento con la clase verde
+
+        // QuerySelectorAll             Es una mezcla de los dos anteriores  (se tienen que cumplir las 2 condiciones)
+
+        let parrafosAzul= document.querySelectorAll('p.azul');            // se crea una variable parrafosAzul y se le asigna el valor de los elementos con la etiqueta p y la clase azul gracias al querySelectorAll
+
+        console.log(parrafosAzul.length);                                            // se imprime en consola la longitud de la variable parrafosAzul. Los parrafos que se encuentran en el documento con la clase azul
+
+
+
+        // Modificar el contenido de la etiqueta h1
+
+        cabecera.innerHTML= 'Ejemplo DOM (modificado) con JS';          // se modifica el contenido de la etiqueta h1 con el innerHTML y se le asigna un nuevo valor
+
+        console.log(cabecera.innerHTML);                                              // se imprime en consola el valor de la variable cabecera
+
+        
+        // Para extraer el contenido de los parrafos utilizando el getElementsByTagName y el getElementsByClassName
+
+        for (let i=0; i<parrafos.length; i++){                            // se crea un ciclo for para recorrer los parrafos
+            console.log(parrafos[i].innerHTML);                                      // se imprime en consola el contenido de los parrafos
+        }
+
+        for (let i=0; i<parrafosVerde.length; i++){                      // se crea un ciclo for para recorrer los parrafos con la clase verde
+            console.log(parrafosVerde[i].innerHTML);                                // se imprime en consola el contenido de los parrafos con la clase verde
+        }
+
+        for (let i=0; i<parrafosAzul.length; i++){                        // se crea un ciclo for para recorrer los parrafos con la clase azul
+            console.log(parrafosAzul[i].innerHTML);                                  // se imprime en consola el contenido de los parrafos con la clase azul
+        }
+
+
+    </script>
+
+</body>
+</html>
