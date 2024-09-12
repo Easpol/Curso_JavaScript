@@ -3,21 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Manejo de Eventos</title>
 </head>
-<body>
+<body onload="miFuncion()">
     
-    <script src=""></script>
+    <h3 onclick="cambiarTexto(this)"> Evento Onclick </h3>          
+    <br>
 
-    <script src=""></script>
+    <h3 id="tituloAsociado"> Asociación de eventos </h3>          
+    <br>
 
-    <script src=""></script>
+    <h3 id="tituloDesplazado"> Te muestro el cambio </h3>          
+    <br>
+    <div id="cambio">.............</div>
+    <br>
+    <div id="cookies">.............</div>
+    <br>
 
-    <script src=""></script>
+    <p> Selecciona una marca de coche Evento Onchange</p>
 
-    <script src=""></script>            
+    <select id="coche" onchange="darMarca(this)">
+        <option value="Audi">Audi</option>
+        <option value="BMW">BMW</option>
+        <option value="Mercedes">Mercedes</option>
+        <option value="Toyota">Toyota</option>
+    </select>
+
+    <p>Acabas de seleccionar; <span id="marcaSelec">........</span></p>
+
+    <h3 onmouseover="rojo(this)" onmouseout="azul(this)">OnMouseOver y onMouseOut</h3>          
+    <br>
+
+    <h3 onmousedown="verde(this)" onmouseup="marron(this)">OnMouseDown y OnMouseUp</h3>          
+    <br>
+
+    <input type="text" onfocus="rosa(this)" onblur="amarillo(this)">OnFocus y OnBlur</input>          
+    <br><br><br>
+
+    <input type="text" id="aelist">AdEventListener</input>          
+    <br><br><br>
+
+    <input type="text" id="funcfle">Funciones Flecha</input>          
+    <br>
+
+
+    
+
+    <script>
+
+        // Creamos una función para Evento onclick                     + Cuando se pinche sobre el elemento, se ejecutará la función
+
+        function cambiarTexto(titulo){                              
+
+            titulo.innerHTML = 'Acabas de clickear el titulo';      
+        }
+
         
-    <script src=""></script>            
+                // Creamos una función para Asociar eventos a elementos html
+
+                document.getElementById('tituloAsociado').onclick = cambiarTextoAsociando;                  // Asociamos la funcion cambiarTextoAsociando al evento onclick del elemento con id tituloAsociado     
+                
+                function cambiarTextoAsociando(tituloAsociado){                                                           // Creamos la funcion cambiarTextoAsociando
+
+                    document.getElementById('tituloAsociado').innerHTML = 'Acabas de clickear el titulo asociado';
+                }
+
+                                /*document.getElementById('tituloAsociado').onclick = function(){      
+
+                                this.innerHTML = 'Acabas de clickear el titulo asociado';
+                                }*/
+
+
+                // Como mandar ese cambio a otro elemento
+
+                document.getElementById('tituloDesplazado').onclick = mostrarCambio;            // Asociamos la funcion mostrarCambio al evento onclick del elemento con id tituloAsociado;
+                
+                function mostrarCambio(){                                                       // Creamos la funcion mostrarCambio
+
+                    document.getElementById('cambio').innerHTML = 'Aqui te lo muestro';
+                }
+
+        
+
+        // Creamos la función para el evento onload                     + No se cargará la función hasta que la página haya sido cargada                          
+
+        function miFuncion(){                                                           // Mostraremos alert y si las cookies estan habilitadas o no
+
+            alert('La página ha sido cargada correctamente');                           // Creamos una alerta que se mostrara al cargar la página ya que se asocio a la funcion miFuncion al evento onload en el body   
+
+            
+            let texto = "";                                                             // Creamos una variable texto para almacenar el texto que se mostrara en el div con id cookies
+
+            if(navigator.cookieEnabled){                                                // Verificamos si las cookies estan habilitadas
+                    
+                    texto = "Las cookies estan habilitadas";
+            }else{
+                    texto = "Las cookies no estan habilitadas";
+            }
+
+            document.getElementById('cookies').innerHTML = texto;                            // Mostramos el texto en el div con id cookies
+        }
+               
+
+
+        // Creamos una función para evento onchange                     + Se ejecutará la función cuando el valor del elemento cambie
+
+        function darMarca(){                          
+            
+            let marca = document.getElementById('coche').value;                           // Obtenemos el valor del select con id coche
+            document.getElementById('marcaSelec').innerHTML = marca;                      // Mostramos el valor en el p con id marcaSelec
+
+        }
+
+
+
+        // Creamos una función para evento mouseover                    + Se ejecutará la función cuando el puntero del ratón pase por encima del elemento
+
+        function rojo(titulo){                          
+            
+            titulo.style.color = 'red';                           // Cambiamos el color del texto a rojo
+        }
+
+
+
+        // Creamos una función para evento mouseout                     + Se ejecutará la función cuando el puntero del ratón salga del elemento
+
+        function azul(titulo){                          
+            
+            titulo.style.color = 'blue';                           // Cambiamos el color del texto a azul
+        }
+        
+
+
+        // Creamos una función para evento mouseDown                    + Se ejecutará la función cuando se presione un botón del ratón sobre el elemento
+
+        function verde(titulo){                          
+            
+            titulo.style.color = 'green';                           // Cambiamos el color del texto a verde
+        }
+
+
+
+        // Creamos una función para evento mouseUp                      + Se ejecutará la función cuando se suelte un botón del ratón sobre el elemento
+
+        function marron(titulo){                          
+            
+            titulo.style.color = 'brown';                           // Cambiamos el color del texto a marron
+        }
+
+
+
+        // Creamos una función para evento onFocus                      + Se ejecutará la función cuando el elemento obtenga el foco
+
+        function rosa(input){                          
+            
+            input.style.backgroundColor = 'pink';                           // Cambiamos el color del fondo del input a rosa
+        }
+        
+
+
+        // Creamos una función para evento onBlur                       + Se ejecutará la función cuando el elemento pierda el foco
+
+        function amarillo(input){                          
+            
+            input.style.backgroundColor = 'yellow';                           // Cambiamos el color del fondo del input a amarillo
+        }
+
+
+
+        // Creamos una función para evento addEventListener             + Se ejecutará la función cuando se produzca el evento especificado en el elemento
+
+        document.getElementById('aelist').addEventListener('focus', aelisfoc);
+        document.getElementById('aelist').addEventListener('blur', aelisblur);
+        
+            function aelisfoc(evento){             
+                
+                let componente = evento.target;                             // Obtenemos el input
+                
+                componente.style.backgroundColor = "purple";                // Cambiamos el color del fondo del input a morado
+
+            };
+
+            function aelisblur(evento){             
+                
+                let componente = evento.target;                             // Obtenemos el input
+                
+                componente.style.backgroundColor = "orange";                // Cambiamos el color del fondo del input a naranja
+
+            };
+
+
+
+        // Creamos una función para funciones flecha                     + Se ejecutará la función cuando se produzca el evento especificado en el elemento
+
+        document.getElementById('funcfle').addEventListener('focus', (evento) => {          // Añadimos un evento focus al input con id funcfle
+                
+                evento.target.style.backgroundColor = "purple";                             // Cambiamos el color del fondo del input a morado
+
+            });
+
+        document.getElementById('funcfle').addEventListener('blur', (evento) => {          // Añadimos un evento blur al input con id funcfle
+                
+                evento.target.style.backgroundColor = "orange";                             // Cambiamos el color del fondo del input a naranja
+
+            });
+
+    </script>
 
 </body>
 </html>
