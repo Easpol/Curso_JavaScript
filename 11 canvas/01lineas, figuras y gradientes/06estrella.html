@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrella</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+
+
+                var puntas = 10;
+                var vertices = puntas * 2;
+                var angulo = Math.PI*2 / vertices;
+                var radioInterno = 35;
+                var radioExterno = 70;
+                var xx = canvas.width/2;
+                var yy = canvas.height/2;
+
+                // estilos
+                
+                ctx.lineWidth=10;                                       
+                ctx.strokeStyle="red";
+                ctx.fillStyle="yellow";                               
+                ctx.beginPath();
+
+                for (var i = 0; i < vertices; i++) {        
+                    var w,y;
+                    
+                    if(i % 2 == 0){
+                        x = Math.cos(angulo * i) * radioExterno;               
+                        y = Math.sin(angulo * i) * radioExterno;               
+                }else{
+                        x = Math.cos(angulo * i) * radioInterno;               
+                        y = Math.sin(angulo * i) * radioInterno;               
+                }   
+                
+                ctx.lineTo(xx + x, yy + y);
+        }
+
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }else{
+                alert("Error: No se pudo acceder al contexto");
+            }
+        }
+    }
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="300" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen</title>
+
+    <style>
+        body {
+            width: 510px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            background-color: green;
+            border: solid yellow 3px;
+        }
+    </style>
+    
+    <script>
+
+        // declarar variables
+
+        var camvas, ctx, imagen;
+        var imagenSelect;
+
+	window.onload=function() {
+
+        imagenSelect = document.getElementById("imagen");               // obtenemos el select
+
+		canvas = document.getElementById("canvas");
+		if (canvas && canvas.getContext) {
+			ctx = canvas.getContext("2d");
+			if (ctx) {
+
+            imagenSelect.onchange = function(e){                        // evento change del select
+                
+                if(imagenSelect.value != ""){                           // si el valor del select es diferente de vacio
+                    imagen = new Image();                               // creamos un objeto imagen
+                    imagen.src = "imagenes/" +imagenSelect.value;       // asignamos la ruta de la imagen
+                    imagen.onload = function(e){                        // evento onload de la imagen
+                        procesarImagen();                               // llamamos a la funcion procesarImagen
+                    }
+                }
+            }
+
+            // colocar una imagen en el canvas
+            function procesarImagen(){
+                limpiar();
+                ctx.drawImage(imagen,10,10);                                    // dibujamos la imagen en el canvas	
+            }
+
+            // limpiar el canvas
+            function limpiar(){
+                ctx.clearRect(250,10,canvas.width,canvas.height);                  // limpiamos el canvas
+            }
+
+                                                           
+        
+        } else {
+				alert("Tu navegador NO soporta la etiqueta canvas");
+			} 
+		}
+	}
+    </script>
+</head>
+
+<body>
+    <h3>Proceso de imágenes</h3>
+    <canvas id="canvas" width="600" height="300">
+    </canvas>
+
+    <select name="" id="imagen">
+        <option value="">--Seleccione una opción</option>
+        <option value="birra.png">Birra</option>
+        <option value="burguer.png">Burguer</option>
+        <option value="planeta.png">Planeta</option>
+</body>
+
+</html>

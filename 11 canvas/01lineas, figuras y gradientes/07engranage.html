@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engranage</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+                
+                // centro del engranaje
+                var centroX = canvas.width/2;
+                var centroY = canvas.height/2;
+
+                // radio del engranaje
+                var radioExterno = 70;
+                var radioInterno = 25;
+                var radioMedio = radioInterno * 1.5;
+                var racioCentro = 20;
+
+                // numero de puntos
+                var numPuntos = 40;
+
+                ctx.beginPath();
+
+
+                for(var i = 0; i< numPuntos; i++){
+                    var radio = null;
+
+                    if(i % 2 == 0){
+                        radio = radioExterno;
+                    }else{
+                        radio = radioInterno;
+                    }
+
+                    var angulo = Math.PI * 2 / numPuntos * (i+1);
+
+
+                    // Calculamos las coordenadas externas
+
+                    var x =radio*Math.cos(angulo) + centroX;
+                    var y =radio*Math.sin(angulo) + centroY;
+
+
+                    // Dibujamos la linea
+
+                    if (i == 0){
+                        ctx.moveTo(x,y);    
+                    }else{      
+                        ctx.lineTo(x,y);
+                    }
+                }
+
+                ctx.closePath();
+                ctx.width = 10;
+                ctx.strokeStyle = "red";
+                ctx.fillStyle = "yellow";
+                ctx.lineJoin = "bevel";
+                ctx.fill();
+                ctx.stroke();                
+
+    }else{
+                alert("Error: No se pudo acceder al contexto");
+            }
+        }
+    }
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="300" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>

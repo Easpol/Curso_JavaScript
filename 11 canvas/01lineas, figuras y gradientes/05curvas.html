@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curva Bezier, cúbica, ziczac y espiral</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+
+                // estilos
+                
+                ctx.lineWidth=10;                                       //ancho de la linea
+                ctx.strokeStyle="yellow";                               //color de la linea
+                ctx.beginPath();                                        //iniciamos el trazo
+
+
+
+                // curva Bezier
+
+                var x1 = 20, y1 = 20;                                   // variables para el punto de inicio
+                ctx.moveTo(x1,y1);                                      // Marcamos el inicio de nuestra curva
+                ctx.quadraticCurveTo(60, 240, 150, 70);                 // Marcamos los parametros de la curva ("x" donde hará la curva, "y" donde hará la curva ,"x" final del trazo , "y" final del trazo)
+                ctx.stroke();                                           //dibujamos la curva    
+
+                
+                // curva Bezier cúbica
+
+                ctx.strokeStyle="red";                                  // cambiamos color de la linea
+                ctx.beginPath();                                        //  iniciamos el nuevo trazo, sino los dos trazos tendrian las mismas propiedades actualizadas
+                ctx.moveTo(20,100);
+                ctx.bezierCurveTo(100, 150, 150, 5, 150, 160);          // Marcamos los parametros de la curva ("x" donde hará 1ª curva, "y" donde hará 1ª curva ,"x" donde hará 2ª curva , "y" donde hará 2ª curva, "x" final del trazo , "y" final del trazo)
+                ctx.stroke();
+
+
+                // curva zic zac
+
+                ctx.strokeStyle="green";                                // cambiamos color de la linea
+                ctx.beginPath();                                        //  iniciamos el nuevo trazo, sino los dos trazos tendrian las mismas propiedades actualizadas
+
+                    var inicioX=250;                                    //variables para el inicio de la curva                                     
+                    var inicioY=10;                                     
+                    var desplazamiento=-30;                             //variable para el desplazamiento de la curva 
+                    var lineas=6;                                       //variable para el numero de lineas
+
+                    ctx.strokeStyle="green";                            //color de la linea
+                    ctx.lineCap="round";                                //forma de la linea
+                    ctx.lineJoin="round";                               //forma de la linea en las curvas
+                    ctx.beginPath();                                    //iniciamos el trazo
+                    ctx.moveTo(inicioX,inicioY);                        // Marcamos el inicio de nuestra curva
+
+
+                    for(var i=0; i<lineas; i++){                        //bucle para el numero de lineas
+                        var x = inicioX +((i+1)*desplazamiento);        //variable para el desplazamiento de la curva
+                        var y = inicioY;
+                        if(i%2==0){                                     //condicion para el zic zac
+                            
+                            y = inicioY + 50;                           //variable para el desplazamiento de la curva                    
+                        }
+                        ctx.lineTo(x,y);                                //dibujamos la linea
+                    }
+
+                    ctx.stroke();                                       //dibujamos la curva
+
+
+                    // Espiral
+
+                    let radio = 0, angulo =0;                           //variables para el radio y el angulo
+                    ctx.strokeStyle="blue";                             
+                    ctx.beginPath();                                   
+                    ctx.moveTo(canvas.width/2,canvas.height/2);         //             
+
+                    for(var i = 0; i<100; i++){
+
+                        radio += 0.75;                                  //incrementamos el radio
+                        angulo += (Math.PI*2)/50                        //incrementamos el angulo
+                        x = canvas.width/2 + radio*Math.cos(angulo);    //calculamos la posicion x
+                        y = canvas.height/2 + radio*Math.sin(angulo);   //calculamos la posicion y
+                        ctx.lineTo(x,y);                                //dibujamos la linea
+                    }
+
+                    ctx.stroke();                                       //dibujamos la curva
+        }
+    }
+}
+
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="300" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>

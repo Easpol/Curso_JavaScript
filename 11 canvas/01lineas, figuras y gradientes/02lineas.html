@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lineas</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+
+                // estilos
+                
+                ctx.lineWidth=25;                                       //ancho de la linea
+                ctx.strokeStyle="yellow";                               //color de la linea
+                ctx.lineCap="round";                                    //estilo de la linea redondo - cuadrado - plano
+
+
+                // dibujar la linea
+
+                ctx.beginPath();                                        //iniciamos el trazo
+                ctx.moveTo(50,50);                                      //inicializamos desde la posición 50,50
+                ctx.lineTo(200,50);                                     //finalizará en la posición 250,50
+                ctx.stroke();                                           //dibujamos la linea
+
+
+                // dibujaremos otra linea
+
+                ctx.strokeStyle="green";                                //color de la linea
+                ctx.lineCap="square";                                   //estilo de la linea cuadrado
+                ctx.beginPath();                                        //iniciamos el trazo
+                ctx.moveTo(50,100);                                     //inicializamos desde la posición 50,50
+                ctx.lineTo(200,100);                                    //finalizará en la posición 250,50
+                ctx.stroke();                                           //dibujamos la linea
+
+                // dibujaremos otra linea
+
+                ctx.strokeStyle="blue";
+                ctx.lineCap="butt";                                     //estilo de la linea plano                   
+                ctx.beginPath();                         
+                ctx.moveTo(50,150);                            
+                ctx.lineTo(200,150);                                  
+                ctx.stroke();                       
+                
+                
+                // dibujamos un rectangulo con esquinas redondeadas
+
+                function Rectangulo(x,y,ancho,alto,radio,fondo,linea){
+                    this.x = x;
+                    this.y = y;
+                    this.w = ancho;
+                    this.h = alto;
+                    this.r = radio;
+                    this.f = fondo;
+                    this.l = linea;
+
+
+
+                    this.dibujar = function(){
+
+                        ctx.save();
+
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y + this.r);
+
+                        // Esquina inferior izquierda
+                        ctx.lineTo(this.x, this.y + this.w - this.r);
+                        ctx.quadraticCurveTo(this.x, this.y + this.h, this.x + this.r, this.y + this.h);
+
+                        // Esquina inferior derecha
+                        ctx.lineTo(this.x + this.w - this.r, this.y + this.h);
+                        ctx.quadraticCurveTo(this.x + this.w, this.y + this.h, this.x + this.w, this.y + this.h - this.r);
+
+                        // Esquina superior derecha
+                        ctx.lineTo(this.x + this.w, this.y + this.r);
+                        ctx.quadraticCurveTo(this.x + this.w, this.y, this.x + this.w - this.r, this.y);
+
+                        // Esquina superior izquierda
+                        ctx.lineTo(this.x + this.r, this.y);
+                        ctx.quadraticCurveTo(this.x, this.y, this.x, this.y + this.r);
+
+                        ctx.fillStyle = this.f;
+                        ctx.strokeStyle = this.l;
+                        ctx.fill();
+                        ctx.stroke();
+                        ctx.restore();
+                    }
+                }
+                
+                // creamos los objetos rectangulo y llamamos al metodo dibujar
+
+                var rectangulo = new Rectangulo(300,50,50,50,10,"red","blue");
+                rectangulo.dibujar();
+
+                var rectangulo2 = new Rectangulo(375,125,50,50,10,"green","yellow");
+                rectangulo2.dibujar();
+
+                
+                }else{
+                    alert("Error: No se ha encontrado el canvas o el contexto");
+                }
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="500" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>

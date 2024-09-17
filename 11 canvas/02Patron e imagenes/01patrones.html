@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrones</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+            
+                var bola = new Image();
+                bola.src = "bola.png";
+
+                bola.onload = function(e){
+
+                    var patron = ctx.createPattern(bola, "repeat");
+                    ctx.fillStyle = patron;
+                    ctx.fillRect(50,20,canvas.width,canvas.height);
+                }
+
+                }else{
+                    alert("Error al crear el contexto");
+                }
+        }   
+    }
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="1600" height="900" margin=0 auto>
+
+
+    </canvas>
+    
+</body>
+</html>

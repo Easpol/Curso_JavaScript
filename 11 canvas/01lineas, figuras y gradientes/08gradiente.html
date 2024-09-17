@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradiente</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+            
+                
+                var gradiente = ctx.createLinearGradient(0,0,canvas.width,0);    //creamos una variable para un gradiente lineal
+
+                gradiente.addColorStop(0,"green");                                //añadimos un color al gradiente
+                gradiente.addColorStop(0.45,"white");                            
+                gradiente.addColorStop(0.55,"red");                                
+                gradiente.addColorStop(1,"yellow");                              
+                    
+            
+                ctx.fillStyle = gradiente;                                      //aplicamos el gradiente al relleno
+                ctx.fillRect(0,0,canvas.width,canvas.height);                   //rellenamos el canvas con el gradiente
+            }
+        }   
+    }
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="300" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>

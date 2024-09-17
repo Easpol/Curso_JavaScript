@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trazos</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+
+
+                // estilos
+                
+                ctx.lineWidth=15;                                       //ancho de la linea
+                ctx.strokeStyle="yellow";                               //color de la linea
+                ctx.fillStyle="red";                                    //color de relleno
+
+
+                // Dibujo de lineas
+                
+                // Path
+                ctx.beginPath();                                        //iniciamos el trazo
+                ctx.moveTo(50,100);                                     //inicializamos desde la posición 50,100
+                ctx.lineTo(100,50);                                     //finalizará en la posición 250,50
+                ctx.lineTo(150,100);                                    //finalizará en la posición 250,50
+                ctx.lineTo(100,150);                                    //finalizará en la posición 250,50
+                ctx.stroke();                                           //dibujamos la linea
+
+
+                ctx.beginPath();
+                ctx.moveTo(200,100);
+                ctx.lineTo(250,50);
+                ctx.lineTo(300,100);
+                ctx.lineTo(250,150);
+                ctx.closePath();                                        //cerramos el trazo, crea la cuarta linea
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(350,100);
+                ctx.lineTo(400,50);
+                ctx.lineTo(450,100);
+                ctx.lineTo(400,150);
+                ctx.fill();                                             //lo rellena del color establecido en vez de dejarlo transparente
+                //ctx.closePath();                                        //cerramos el trazo, crea la cuarta linea
+                ctx.stroke();
+
+
+
+
+                }else{
+                    alert("Error: No se ha encontrado el canvas o el contexto");
+                }
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="500" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>

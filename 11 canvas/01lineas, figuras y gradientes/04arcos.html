@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcos</title>
+
+    <style>
+        canvas {
+            border: 3px solid yellow;
+            background-color: rgb(19, 182, 236);
+        }
+
+    </style>
+
+    <script>
+
+        window.onload=function(){
+
+            canvas = document.getElementById("canvas");                 //obtenemos el canvas
+
+            if(canvas && canvas.getContext){                            //verificamos que el canvas exista y tenga contexto
+
+                ctx = canvas.getContext("2d");                          //obtenemos el contexto 2d
+
+                if(ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+          
+                // estilos
+                
+                ctx.lineWidth=10;                                       //ancho de la linea
+                ctx.strokeStyle="yellow";                               //color de la linea
+                ctx.fillStyle="red";                                    //color de relleno
+                
+
+                // Arco
+
+                ctx.beginPath();                                        //iniciamos el trazo
+                ctx.arc(100,100,55,0,1.1*Math.PI , 1.9*Math.Pi);        //dibujamos un arco (x,y, tamaño del radio, Desde donde inicia ( 0 "desde el principio hasta 6" ), Hasta donde termina ( 2*Math.PI "circulo completo" ))
+                ctx.stroke();                                           //dibujamos la linea
+
+
+                // Otro arco
+
+                ctx.beginPath();                                        
+                ctx.arc(250,100,40,0, 1.7*Math.PI , 2.2*Math.Pi ,  true);   // la palabra true hara que el arco se voltee
+                ctx.fill();                                                 //rellenamos el arco
+                ctx.stroke();                                               
+
+                // Otro arco
+
+                ctx.beginPath();                                        
+                ctx.arc(400,100,65,0, 2*Math.PI);    // Con 2*Math.PI se dibuja un circulo completo                                              
+                ctx.stroke(); 
+
+
+
+
+
+
+
+
+
+                }else{
+                    alert("Error: No se ha encontrado el canvas o el contexto");
+                }
+            }
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="500" height="200">
+
+
+    </canvas>
+    
+</body>
+</html>
