@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animación continua</title>
+
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        canvas {
+            background: green;
+        }
+    </style>
+
+    <script>
+
+        // declaramos las variables globales
+
+        const game = {
+            ctx:null,                                                           //contexto
+            canvas:null,                                                        //canvas
+            radio:10,                                                           //radio de la bola
+            bolaX:50,                                                           //posicion x de la bola                                    
+            bolaY:100,                                                          //posicion y de la bola                           
+            colorBola:'red',                                                    //color de la bola
+            disX:12,                                                            //desplazamiento en x    
+            disY:4,                                                            //desplazamiento en y
+        }
+
+
+        window.onload=function(){
+            game.canvas = document.getElementById("canvas");
+            if(canvas && canvas.getContext){
+                game.ctx = canvas.getContext("2d");
+                if(game.ctx){                                                
+                    // alert("El navegador soporta canvas");            //verificamos que el contexto exista y el navegador soporte canvas
+            
+                game.ctx.lineWidth = game.radio;                                //ancho de la linea
+                game.ctx.fillStyle = game.colorBola;                            //color de la bola
+                mueve();
+
+                setInterval(mueve, 60);                                        //llamamos a la funcion mueve cada 60 milisegundos
+
+            }else{
+                    alert("Error al crear el contexto");
+                }
+        }   
+    }
+
+    const mueve = () => {
+
+        game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);                    //limpiamos el canvas para que la bola no deje rastro
+        game.bolaX += game.disX;                                                            //incrementamos la posicion x de la bola en sentido "x" horizontal
+        game.bolaY += game.disY;                                                            //incrementamos la posicion y de la bola en sentido "y" vertical                  
+        game.ctx.beginPath();                                                               //iniciamos el trazado
+        game.ctx.arc(game.bolaX, game.bolaY, game.radio, 0, Math.PI*2, true);               //dibujamos la bola (x, y, radio, angulo inicial, angulo final, sentido de las agujas del reloj)
+        game.ctx.fill();                                                                    //rellenamos la bola    
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <canvas id="canvas" width="600" height="400" margin=0 auto>
+
+
+    </canvas>
+    
+</body>
+</html>

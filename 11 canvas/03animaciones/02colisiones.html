@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colisiones y rebote</title>
+
+    <style>
+        body {
+            width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        canvas {
+            background: green;
+        }
+    </style>
+
+    <script>
+
+        // declaramos las variables globales
+
+        const game = {
+            ctx:null,                                                           //contexto
+            canvas:null,                                                        //canvas
+            radio:10,                                                           //radio de la bola
+            bolaX:50,                                                           //posicion x de la bola                                    
+            bolaY:100,                                                          //posicion y de la bola                           
+            colorBola:'red',                                                    //color de la bola
+            disX:12,                                                            //desplazamiento en x    
+            disY:6,                                                            //desplazamiento en y
+
+            // limites del canvas
+            limiteDerecha:0,
+            limiteIzquierda:0,
+            limiteSuperior:0,
+            limiteInferior:0
+        }
+
+
+        window.onload=function(){
+            game.canvas = document.getElementById("canvas");
+            if(canvas && canvas.getContext){
+                game.ctx = canvas.getContext("2d");
+                if(game.ctx){                                                
+                    // alert("El navegador soporta canvas");           
+            
+                inicio();     
+                mueve();
+
+                setInterval(mueve, 30);                                        
+
+            }else{
+                    alert("Error al crear el contexto");
+                }
+        }   
+    }
+
+    const inicio=()=>{
+
+        game.ctx.lineWidth = game.radio;                               
+        game.ctx.fillStyle = game.colorBola; 
+
+        game.limiteDerecha = game.canvas.width - game.radio;                                    // limite derecho del canvas    ancho del canvas menos el radio de la bola
+        game.limiteInferior = game.canvas.height - game.radio;                                  // limite inferior del canvas   alto del canvas menos el radio de la bola
+        
+        game.limiteIzquierda = game.radio;                                                      // limite izquierdo del canvas  limite izquierdo del canvas    
+        game.limiteSuperior = game.radio;                                                       // limite superior del canvas   limite superior del canvas
+
+    }    
+
+    const mueve = () => {
+
+        game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
+        verificarLimites();                                                                         // verificamos los limites del canvas
+        game.bolaX += game.disX;                                                            
+        game.bolaY += game.disY;                                                                            
+        game.ctx.beginPath();                                                               
+        game.ctx.arc(game.bolaX, game.bolaY, game.radio, 0, Math.PI*2, true);               
+        game.ctx.fill();                                                                       
+        }
+    
+    
+    const verificarLimites = () => {
+
+        let nbolaX = game.bolaX + game.disX;                                                        // tamaño bola y velocidad a la que se mueve en sentido x
+        let nbolaY = game.bolaY + game.disY;                                                        // tamaño bola y velocidad a la que se mueve en sentido y
+
+        if (nbolaX > game.limiteDerecha) {                                                          // si la bola se sale por la derecha
+            game.disX *= -1;                                                                        // cambiamos el sentido de la bola en x
+            nbolaX = game.limiteDerecha;                                                            // la bola se queda en el limite derecho   
+        }
+
+        if (nbolaX < game.limiteIzquierda) {                                                        // si la bola se sale por la izquierda
+            game.disX *= -1;                                                                        // cambiamos el sentido de la bola en x
+            nbolaX = game.limiteIzquierda;                                                          // la bola se queda en el limite izquierdo
+        }
+
+        if (nbolaY > game.limiteInferior) {                                                         // si la bola se sale por abajo
+            game.disY *= -1;                                                                        // cambiamos el sentido de la bola en y
+            nbolaY = game.limiteInferior;                                                           // la bola se queda en el limite inferior
+        }
+
+        if (nbolaY < game.limiteSuperior) {                                                         // si la bola se sale por arriba
+            game.disY *= -1;                                                                        // cambiamos el sentido de la bola en y
+            nbolaY = game.limiteSuperior;                                                           // la bola se queda en el limite superior
+        }     
+    }
+
+    </script>
+
+</head>
+<body>
+    <h3>Rebotes</h3>
+    <canvas id="canvas" width="600" height="400" margin=0 auto>
+    </canvas>
+    
+</body>
+</html>
